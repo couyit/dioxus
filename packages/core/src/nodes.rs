@@ -7,7 +7,6 @@ use crate::{
     Element, Event, Properties, ScopeId, VirtualDom,
 };
 use dioxus_core_types::DioxusFormattable;
-use std::ops::Deref;
 use std::rc::Rc;
 use std::vec;
 use std::{
@@ -15,6 +14,7 @@ use std::{
     cell::Cell,
     fmt::{Arguments, Debug},
 };
+use std::{ops::Deref, sync::Arc};
 
 /// The information about the
 #[derive(Debug)]
@@ -763,7 +763,7 @@ pub enum AttributeValue {
     Listener(ListenerCallback),
 
     /// An arbitrary value that implements PartialEq and is static
-    Any(Rc<dyn AnyValue>),
+    Any(Arc<dyn AnyValue>),
 
     /// A "none" value, resulting in the removal of an attribute from the dom
     None,
@@ -779,7 +779,7 @@ impl AttributeValue {
 
     /// Create a new [`AttributeValue`] with a value that implements [`AnyValue`]
     pub fn any_value<T: AnyValue>(value: T) -> AttributeValue {
-        AttributeValue::Any(Rc::new(value))
+        AttributeValue::Any(Arc::new(value))
     }
 }
 
@@ -1102,7 +1102,7 @@ impl IntoAttributeValue for Arguments<'_> {
     }
 }
 
-impl IntoAttributeValue for Rc<dyn AnyValue> {
+impl IntoAttributeValue for Arc<dyn AnyValue> {
     fn into_value(self) -> AttributeValue {
         AttributeValue::Any(self)
     }
