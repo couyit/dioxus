@@ -385,6 +385,14 @@ shell-words = "1.1.0"
 keyboard-types = { version = "0.7", default-features = false }
 winit = { version = "0.30.11", features = ["rwh_06"] }
 
+[patch.crates-io]
+blitz-dom = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-dom" }
+blitz-net = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-net" }
+blitz-html = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-html" }
+blitz-paint = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-paint" }
+blitz-traits = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-traits" }
+blitz-shell = { git = "https://github.com/couyit/blitz.git", branch = "sendable", package = "blitz-shell" }
+
 # our release profile should be fast to compile and fast to run
 # when we ship our CI builds, we turn on LTO which improves perf leftover by turning on incremental
 [profile.release]
